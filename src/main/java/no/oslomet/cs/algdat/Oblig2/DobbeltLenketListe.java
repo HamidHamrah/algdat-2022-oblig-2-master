@@ -4,6 +4,7 @@ package no.oslomet.cs.algdat.Oblig2;
 ////////////////// class DobbeltLenketListe //////////////////////////////
 
 
+import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
 import java.util.Iterator;
 
@@ -37,10 +38,56 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     private int endringer;         // antall endringer i listen
 
     public DobbeltLenketListe() {
-        throw new UnsupportedOperationException();
+        hode = hale = null;
+        antall = 0;
+        endringer = 0;
     }
 
     public DobbeltLenketListe(T[] a) {
+        // Kaster unntak for null tabell
+        if(a == null){ throw new NullPointerException("Tabell a er null!"); }
+
+        a = fjernullVerdier(a);             // Fjerner alle null-verdier
+        if(a.length == 0) { return; }         // Hopper ut av metoden hvis listen er tom
+
+        Node<T> aktuell = new Node<>(a[0]);  // Opretter første node, og gir den verdi
+        antall++;                            // Opdaterer antall noder
+        hode = aktuell;                      // Setter hode lik første node
+
+        for (int i = 1; i < a.length; i++) {
+            Node<T> neste = new Node<>(a[i]);    // Opretter ny node
+            antall++;                            // Opdaterer antall noder
+            aktuell.neste = neste;               // Setter aktuell sin neste peker
+            neste.forrige = aktuell;             // Setter neste sin forrige peker
+            aktuell = neste;                     // Setter aktuell lik neste
+        }
+        hale = aktuell;                          // Setter halen lik siste node
+
+    }
+    private T[] fjernullVerdier(T[] a){
+        int antallNullverdier = 0;              // Teller for antall nullverdier
+
+        for(T verdi : a){
+            if(verdi == null){                  // Tester hvor mange verdier som er null
+                antallNullverdier++;
+            }
+        }
+
+        if(antallNullverdier == 0){ return a; }     // Returnerer oprinnelig liste hvis det ikke er noe nullverdier
+
+        T[] b = (T[]) new Object[a.length - antallNullverdier];     // Opretter returlisten
+
+        int j = 0;  // indeks for returlisten
+
+        // Legger til alle verdiene som ikke er null til returlisten
+        for(int i = 0; i < a.length; i++) {
+            if(a[i] != null){
+                b[j] = a[i];
+                j++;
+            }
+        }
+
+        return b;
 
     }
 
@@ -55,10 +102,10 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean tom() {
-       if (antall>0){ // Hvis antall er støre enn 0 så returnere vi True.
-           return true;
+       if (antall>0){ // Hvis antall er støre enn 0 så returnere vi false.
+           return false;
        }
-       return false;   // Ellers returnerer vi False.
+       return true;   // Ellers returnerer vi true.
     }
 
     @Override
@@ -108,11 +155,35 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public String toString() {
-        throw new UnsupportedOperationException();
+        StringBuilder utskrift = new StringBuilder("[");
+        Node<T> current=hode;
+        while (current!=null){
+            if (current==hale){
+                utskrift.append(current.verdi);
+            }
+            else {
+                utskrift.append(current.verdi+",");
+            }
+            current=current.neste;
+        }
+        utskrift.append("]");
+        return utskrift.toString();
     }
 
     public String omvendtString() {
-        throw new UnsupportedOperationException();
+        StringBuilder print=new StringBuilder("[");
+        Node<T> current=hale;
+        while (current!=null){
+            if (current==hode){
+                print.append(current.verdi);
+            }
+            else {
+                print.append(current.verdi+", ");
+            }
+            current=current.forrige;
+        }
+        print.append("]");
+        return print.toString();
     }
 
     @Override
