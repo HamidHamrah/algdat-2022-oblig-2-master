@@ -41,7 +41,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public DobbeltLenketListe(T[] a) {
-        throw new UnsupportedOperationException();
+
     }
 
     public Liste<T> subliste(int fra, int til) {
@@ -50,12 +50,15 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public int antall() {
-        throw new UnsupportedOperationException();
+        return antall;   //Returnerer antall
     }
 
     @Override
     public boolean tom() {
-        throw new UnsupportedOperationException();
+       if (antall>0){ // Hvis antall er støre enn 0 så returnere vi True.
+           return true;
+       }
+       return false;   // Ellers returnerer vi False.
     }
 
     @Override
