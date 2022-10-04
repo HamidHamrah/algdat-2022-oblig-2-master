@@ -93,7 +93,34 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public Liste<T> subliste(int fra, int til) {
-        throw new UnsupportedOperationException();
+        fratilKontroll(antall, fra, til);            // Sjekker at fra og til argumentene er innenfor listen sin lengde
+        Node<T> aktuell = hode;                      // Lagerer hodet
+        for(int i = 0; i < fra; i++) {
+            aktuell = aktuell.neste;                 // Flytter aktuell fra hode til fra
+        }
+        T[] sublisteInput = (T[]) new Object[til-fra]; // Oppretter sublisteInput
+
+        int indeks = 0;
+
+        for(int i = fra; i < til; i++) {
+            sublisteInput[indeks] = aktuell.verdi;        // Fyller sublisteInput med verdiene til [fra-til> sine noder
+            aktuell = aktuell.neste;
+            indeks++;
+        }
+        DobbeltLenketListe<T> subliste = new DobbeltLenketListe<>(sublisteInput); // Oppretter sublisten, og fyller den
+        return subliste;
+    }
+    //Hjelpemetode
+    private void fratilKontroll(int antall, int fra, int til) {
+        if (fra < 0) {                                // fra er negativ
+            throw new IndexOutOfBoundsException("fra(" + fra + ") er negativ!");
+        }
+        if (til > antall) {                        // til er utenfor tabellen
+            throw new IndexOutOfBoundsException("til(" + til + ") > antall(" + antall + ")");
+        }
+        if (fra > til) {                               // fra er større enn til
+            throw new IllegalArgumentException("fra(" + fra + ") > til(" + til + ") - illegalt intervall!");
+        }
     }
 
     @Override
@@ -182,14 +209,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T oppdater(int indeks, T nyverdi) {
-       if (nyverdi==null){
-            throw new NullPointerException("Ny verdi Kan ikke være null");
-       }
-       indeksKontroll(indeks,false);
-       Node<T> node=finnNode(indeks);
-       T gammelVerdi=nyverdi;
-       endringer++;
-       return gammelVerdi;
+        //Om nyverdi er null kastes et unntak
+        if(nyverdi == null) { throw new NullPointerException("Nyverdi kan ikke være null"); }
+        indeksKontroll(indeks, false);          // Sjekker om indeksen er ugyldig
+        Node<T> node = finnNode(indeks);                 // Finner noden til indeks og putter verdien inn i en variabel
+        T gammelVerdi = node.verdi;                      // Lagrer nodens nåværende veri
+        node.verdi = nyverdi;                            // Oppdaterer noden sin verdi
+        endringer++;                                     // Øker antall endringer med 1
+        return gammelVerdi;                              // Returnerer nodens verdi før den ble oppdatert
     }
 
     @Override

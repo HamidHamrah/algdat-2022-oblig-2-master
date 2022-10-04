@@ -48,4 +48,13 @@ Oppgave3a
 * så returnerer vi den gammele verdi. 
 
 
-Oppgave 3b. 
+Oppgave 3b.
+* Vi oppretter fraTilKontroll for å sjekke om løvlig verider. 
+* Vi først sjekker om fra<0 også om fra til>antall også til slutt og fra>til.
+* Vi lager Subliste som tar innn fra og til til en liste. 
+* Der etter lager vi den føste node og setter lik hode også itrer vi derfra. 
+* Vi oppretter Subliste også fyller sublisteInput med verdiene til [fra-til> sine noder
+* Til slutt så returnerr vi Subliste. 
+
+Oppgave4. 
+
