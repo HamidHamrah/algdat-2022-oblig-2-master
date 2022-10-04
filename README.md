@@ -21,4 +21,11 @@ Oppgave1.
 
 
 Oppgave2. 
+* Her skal vi lage public boolean legginn som skal returnere et boolean. 
+* som oppgave be oss om å å sjekke at null verdier er ikke tillat. 
+* Vi sjekker først om antall noder er støre enn null hvis ja så oppdatere vi pekere til neste og den førrige peker. 
+* Hvis det antall element var null så setter vi hode lik ny og hale lik ny. 
+* også plusser vi på antall og endringer. 
 
+Oppgave3.
+ 
