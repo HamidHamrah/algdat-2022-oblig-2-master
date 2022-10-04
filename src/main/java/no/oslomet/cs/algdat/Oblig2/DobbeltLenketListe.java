@@ -7,6 +7,7 @@ package no.oslomet.cs.algdat.Oblig2;
 import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.Objects;
 
 
 public class DobbeltLenketListe<T> implements Liste<T> {
@@ -110,7 +111,25 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean leggInn(T verdi) {
-        throw new UnsupportedOperationException();
+        verdi = Objects.requireNonNull(verdi, "Null-verdier er ikke tillatt");    // Tester for null-verdi
+
+        //legger inn en ny node bakerst
+        if(antall > 0){
+            Node<T> ny = new Node<>(verdi);                 // Opretter ny node
+            hale.neste = ny;                                // Setter hale sin neste-peker lik ny
+            ny.forrige = hale;                              // Setter ny sin forrige-peker lik halen
+            hale = ny;                                      // Setter hale lik ny node
+
+        } else {   // Hvis det ikke fins noen noder fra før
+            Node<T> ny = new Node<>(verdi);                 // Opretter ny node
+            hode = ny;                                      // Setter hode lik ny node
+            hale = ny;                                      // Setter hale lik ny node
+        }
+
+        // Legger 1 til antall og endringer variablene
+        antall++;
+        endringer++;
+        return true;
     }
 
     @Override
@@ -162,7 +181,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 utskrift.append(current.verdi);
             }
             else {
-                utskrift.append(current.verdi+",");
+                utskrift.append(current.verdi+", ");
             }
             current=current.neste;
         }
