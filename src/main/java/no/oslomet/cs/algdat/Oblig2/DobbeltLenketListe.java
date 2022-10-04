@@ -48,39 +48,39 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         // Kaster unntak for null tabell
         if(a == null){ throw new NullPointerException("Tabell a er null!"); }
 
-        a = fjernullVerdier(a);             // Fjerner alle null-verdier
-        if(a.length == 0) { return; }         // Hopper ut av metoden hvis listen er tom
+        a = fjernullVerdier(a);
+        if(a.length == 0) { return; }
 
-        Node<T> aktuell = new Node<>(a[0]);  // Opretter første node, og gir den verdi
-        antall++;                            // Opdaterer antall noder
-        hode = aktuell;                      // Setter hode lik første node
+        Node<T> aktuell = new Node<>(a[0]);
+        antall++;
+        hode = aktuell;
 
         for (int i = 1; i < a.length; i++) {
-            Node<T> neste = new Node<>(a[i]);    // Opretter ny node
-            antall++;                            // Opdaterer antall noder
-            aktuell.neste = neste;               // Setter aktuell sin neste peker
-            neste.forrige = aktuell;             // Setter neste sin forrige peker
-            aktuell = neste;                     // Setter aktuell lik neste
+            Node<T> neste = new Node<>(a[i]);
+            antall++;
+            aktuell.neste = neste;
+            neste.forrige = aktuell;
+            aktuell = neste;
         }
-        hale = aktuell;                          // Setter halen lik siste node
+        hale = aktuell;
 
     }
     private T[] fjernullVerdier(T[] a){
-        int antallNullverdier = 0;              // Teller for antall nullverdier
+        int antallNullverdier = 0;
 
         for(T verdi : a){
-            if(verdi == null){                  // Tester hvor mange verdier som er null
+            if(verdi == null){
                 antallNullverdier++;
             }
         }
 
-        if(antallNullverdier == 0){ return a; }     // Returnerer oprinnelig liste hvis det ikke er noe nullverdier
+        if(antallNullverdier == 0){ return a; }
 
-        T[] b = (T[]) new Object[a.length - antallNullverdier];     // Opretter returlisten
+        T[] b = (T[]) new Object[a.length - antallNullverdier];
 
-        int j = 0;  // indeks for returlisten
+        int j = 0;
 
-        // Legger til alle verdiene som ikke er null til returlisten
+
         for(int i = 0; i < a.length; i++) {
             if(a[i] != null){
                 b[j] = a[i];
@@ -98,35 +98,34 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public int antall() {
-        return antall;   //Returnerer antall
+        return antall;
     }
 
     @Override
     public boolean tom() {
-       if (antall>0){ // Hvis antall er støre enn 0 så returnere vi false.
+       if (antall>0){
            return false;
        }
-       return true;   // Ellers returnerer vi true.
+       return true;
     }
 
     @Override
     public boolean leggInn(T verdi) {
-        verdi = Objects.requireNonNull(verdi, "Null-verdier er ikke tillatt");    // Tester for null-verdi
+        verdi = Objects.requireNonNull(verdi, "Null-verdier er ikke tillatt");
 
-        //legger inn en ny node bakerst
+
         if(antall > 0){
-            Node<T> ny = new Node<>(verdi);                 // Opretter ny node
-            hale.neste = ny;                                // Setter hale sin neste-peker lik ny
-            ny.forrige = hale;                              // Setter ny sin forrige-peker lik halen
-            hale = ny;                                      // Setter hale lik ny node
+            Node<T> ny = new Node<>(verdi);
+            hale.neste = ny;
+            ny.forrige = hale;
+            hale = ny;
 
-        } else {   // Hvis det ikke fins noen noder fra før
-            Node<T> ny = new Node<>(verdi);                 // Opretter ny node
-            hode = ny;                                      // Setter hode lik ny node
-            hale = ny;                                      // Setter hale lik ny node
+        } else {
+            Node<T> ny = new Node<>(verdi);
+            hode = ny;
+            hale = ny;
         }
 
-        // Legger 1 til antall og endringer variablene
         antall++;
         endringer++;
         return true;
@@ -144,7 +143,36 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T hent(int indeks) {
-        throw new UnsupportedOperationException();
+        indeksKontroll(indeks,false);
+        Node<T> returNorde=finnNode(indeks);
+        return returNorde.verdi;
+    }
+
+
+    // Hjelpemetode
+    private Node<T> finnNode(int indeks) {
+        Node<T> returNode;
+
+        if(indeks < antall/2) {                 // Hvis indeksen er mindre enn antall / 2, søker fra hode
+            returNode = hode;                   // Setter returNode lik hode
+            int i = 0;
+            // Setter returnNode lik neste verdi helt til indeksen stemmer
+            while (i < indeks) {
+                returNode = returNode.neste;
+                i++;
+            }
+        } else {                                // Hvis indeks er >= antall / 2, søker fra hale
+            returNode = hale;
+            int i = antall-1;
+
+            // Setter returnNode lik forrige verdi helt til indeksen stemmer
+            while (i > indeks) {
+                returNode = returNode.forrige;
+                i--;
+            }
+        }
+
+        return returNode;
     }
 
     @Override
@@ -154,7 +182,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T oppdater(int indeks, T nyverdi) {
-        throw new UnsupportedOperationException();
+       if (nyverdi==null){
+            throw new NullPointerException("Ny verdi Kan ikke være null");
+       }
+       indeksKontroll(indeks,false);
+       Node<T> node=finnNode(indeks);
+       T gammelVerdi=nyverdi;
+       endringer++;
+       return gammelVerdi;
     }
 
     @Override
