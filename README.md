@@ -57,4 +57,10 @@ Oppgave 3b.
 * Til slutt så returnerr vi Subliste. 
 
 Oppgave4. 
+* Vi sjekke først om tabellen er tom eller verdi som settes inn ikke er null hvis det var slik så returernere vi -1
+* Etter det så begynner vi fra node hode og itrer framover
+* inn i forløkke så sjekker vi så sjekker vi om verdi på node er like verdi vi letter etter og hvis det var slik så returnere vi possijon til verid. 
+* hvis ikke så hopper vi på neste node. 
 
+Oppgave5.
+* 
