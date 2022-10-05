@@ -93,21 +93,21 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public Liste<T> subliste(int fra, int til) {
-        fratilKontroll(antall, fra, til);            // Sjekker at fra og til argumentene er innenfor listen sin lengde
-        Node<T> aktuell = hode;                      // Lagerer hodet
+        fratilKontroll(antall, fra, til);
+        Node<T> aktuell = hode;
         for(int i = 0; i < fra; i++) {
-            aktuell = aktuell.neste;                 // Flytter aktuell fra hode til fra
+            aktuell = aktuell.neste;
         }
-        T[] sublisteInput = (T[]) new Object[til-fra]; // Oppretter sublisteInput
+        T[] sublisteInput = (T[]) new Object[til-fra];
 
         int indeks = 0;
 
         for(int i = fra; i < til; i++) {
-            sublisteInput[indeks] = aktuell.verdi;        // Fyller sublisteInput med verdiene til [fra-til> sine noder
+            sublisteInput[indeks] = aktuell.verdi;
             aktuell = aktuell.neste;
             indeks++;
         }
-        DobbeltLenketListe<T> subliste = new DobbeltLenketListe<>(sublisteInput); // Oppretter sublisten, og fyller den
+        DobbeltLenketListe<T> subliste = new DobbeltLenketListe<>(sublisteInput);
         return subliste;
     }
     //Hjelpemetode
@@ -185,19 +185,18 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     private Node<T> finnNode(int indeks) {
         Node<T> returNode;
 
-        if(indeks < antall/2) {                 // Hvis indeksen er mindre enn antall / 2, søker fra hode
-            returNode = hode;                   // Setter returNode lik hode
+        if(indeks < antall/2) {
+            returNode = hode;
             int i = 0;
-            // Setter returnNode lik neste verdi helt til indeksen stemmer
+
             while (i < indeks) {
                 returNode = returNode.neste;
                 i++;
             }
-        } else {                                // Hvis indeks er >= antall / 2, søker fra hale
+        } else {
             returNode = hale;
             int i = antall-1;
 
-            // Setter returnNode lik forrige verdi helt til indeksen stemmer
             while (i > indeks) {
                 returNode = returNode.forrige;
                 i--;
@@ -226,12 +225,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public T oppdater(int indeks, T nyverdi) {
         //Om nyverdi er null kastes et unntak
         if(nyverdi == null) { throw new NullPointerException("Nyverdi kan ikke være null"); }
-        indeksKontroll(indeks, false);          // Sjekker om indeksen er ugyldig
-        Node<T> node = finnNode(indeks);                 // Finner noden til indeks og putter verdien inn i en variabel
-        T gammelVerdi = node.verdi;                      // Lagrer nodens nåværende veri
-        node.verdi = nyverdi;                            // Oppdaterer noden sin verdi
-        endringer++;                                     // Øker antall endringer med 1
-        return gammelVerdi;                              // Returnerer nodens verdi før den ble oppdatert
+        indeksKontroll(indeks, false);
+        Node<T> node = finnNode(indeks);
+        T gammelVerdi = node.verdi;
+        node.verdi = nyverdi;
+        endringer++;
+        return gammelVerdi;
     }
 
     @Override
