@@ -4,6 +4,7 @@ package no.oslomet.cs.algdat.Oblig2;
 ////////////////// class DobbeltLenketListe //////////////////////////////
 
 
+import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -160,7 +161,59 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public void leggInn(int indeks, T verdi) {
-        throw new UnsupportedOperationException();
+        if(indeks < 0 || antall < indeks){
+            throw new IndexOutOfBoundsException("Indeks kan ikke være negative eller støre enn antall.");
+        }
+
+        if(antall == 0) {
+            leggInn(verdi);
+            return;
+        }
+
+        else if(indeks == 0){
+            Node<T> ny = new Node<>(verdi);
+            ny.neste = hode;
+            hode.forrige = ny;
+            hode = ny;
+
+        }
+
+        else if(indeks == antall){
+            Node<T> ny = new Node<>(verdi);
+            ny.forrige = hale;
+            hale.neste = ny;
+            hale = ny;
+        }
+
+        else if(indeks > antall/2){
+            Node<T> aktuell = hode;
+            for(int i = 0; i < indeks-1; i++){
+                aktuell = aktuell.neste;
+            }
+
+            Node<T> ny = new Node<>(verdi);
+            ny.neste = aktuell.neste;
+            ny.forrige = aktuell;
+            aktuell.neste = ny;
+            ny.neste.forrige = ny;
+        }
+
+        else{
+            Node<T> aktuell = hale;
+            for(int i = antall; i > indeks; i--){
+                aktuell = aktuell.forrige;
+            }
+
+            Node<T> ny = new Node<>(verdi);
+            ny.neste = aktuell.neste;
+            ny.forrige = aktuell;
+            aktuell.neste = ny;
+            ny.neste.forrige = ny;
+
+
+        }
+        antall++;
+        endringer++;
     }
 
     @Override
@@ -240,7 +293,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T fjern(int indeks) {
-        throw new UnsupportedOperationException();
+       throw new UnsupportedOperationException();
     }
 
     @Override

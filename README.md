@@ -63,4 +63,4 @@ Oppgave4.
 * hvis ikke så hopper vi på neste node. 
 
 Oppgave5.
-* 
+
