@@ -85,6 +85,11 @@ Oppgave6b
 * Til slutt så reduserer vi antallet og øker endringer. 
 
 Oppgave8
+* Vi sjekker først om iteratorendirnger er like endringer hvis ikke så kaster vi en exception.
+* Vi sjekkerom hasNext() er ikke ture så kaster vi en exception
+* hvis fjern ok er true så kan man bruke remove() methoden.
+* Til slutt så returnerer vi denneverdi sin verdien.
 
+Note: Kjørte testen og fikk ikke passed da jeg måtte gjøre null stille methoden også. 
 
 
