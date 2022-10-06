@@ -4,11 +4,10 @@ package no.oslomet.cs.algdat.Oblig2;
 ////////////////// class DobbeltLenketListe //////////////////////////////
 
 
+import javax.print.DocFlavor;
 import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.time.temporal.ChronoUnit;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.Objects;
+import java.util.*;
 
 
 public class DobbeltLenketListe<T> implements Liste<T> {
@@ -352,7 +351,13 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public void nullstill() {
-        throw new UnsupportedOperationException();
+        for(Node<T> t = hode; t != null; t = t.neste) {
+            t.verdi = null;
+            t.forrige = t.neste = null;
+        }
+        hode = hale = null;
+        antall = 0;
+        endringer++;
     }
 
     @Override
@@ -390,11 +395,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public Iterator<T> iterator() {
-        throw new UnsupportedOperationException();
+        return new DobbeltLenketListeIterator();
     }
 
     public Iterator<T> iterator(int indeks) {
-        throw new UnsupportedOperationException();
+       indeksKontroll(indeks,false);
+       return new DobbeltLenketListeIterator(indeks);
     }
 
     private class DobbeltLenketListeIterator implements Iterator<T> {
@@ -409,7 +415,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
 
         private DobbeltLenketListeIterator(int indeks) {
-            throw new UnsupportedOperationException();
+           denne=finnNode(indeks);
+           fjernOK=false;
+           iteratorendringer=endringer;
         }
 
         @Override
@@ -419,7 +427,16 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         @Override
         public T next() {
-            throw new UnsupportedOperationException();
+            if (iteratorendringer!=endringer){
+                throw new ConcurrentModificationException("iterator endringer er skal være lik endinger.");
+            }
+            if (hasNext()!=true){
+                throw new NoSuchElementException("Det er ikkke flere igjen i listen");
+            }
+            fjernOK=true;
+            T denneVerdi= denne.verdi;
+            denne=denne.neste;
+            return denneVerdi;
         }
 
         @Override

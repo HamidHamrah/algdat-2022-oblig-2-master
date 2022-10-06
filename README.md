@@ -78,10 +78,13 @@ Oppgave6a
 * Til slutt så sjekker om noden skal fjernes er mellom to noden
 * til slutt så reduserer vi antall og øker endringer. 
 
-Oppgave 6b. 
+Oppgave6b 
 * I methoden boolean fjernes så sjekker vi først om verdeien som skal fjernes er lik null hvis den var det så returenerer vi false;
 * Vi prøver med en while loop for å gå gjenom alle noder til å sjekke om node.verdi er like verdi.
 * vi går gjenom flere tilfeller for eksempel hvis antall lik 1 så oppdater vi hode og hale og setter dem like. 
 * Til slutt så reduserer vi antallet og øker endringer. 
+
+Oppgave8
+
 
 
