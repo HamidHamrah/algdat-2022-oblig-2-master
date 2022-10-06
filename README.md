@@ -63,4 +63,11 @@ Oppgave4.
 * hvis ikke så hopper vi på neste node. 
 
 Oppgave5.
+* I Oppgave 5 så sjekke først for at indeks ikke er negative og om den er mindre enn antall.
+* Etter det så sjekker vi om antall er lik null hvis den er 0 så betyr det at tabellen er tom og legger vi inn verdien.
+* Vi har skal kunne legge verdien i begynelsen av tabellen, i slutten og mellom to verdier.
+* Koden er skrevet slik at den kan gjøre alle alternativene.
+* Til slutt så plusser vi på antall da vi har lagt inn et nytt element og plusser vi på endringer. 
 
+Oppgave6. 
+*
