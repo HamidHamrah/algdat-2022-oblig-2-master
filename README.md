@@ -69,5 +69,19 @@ Oppgave5.
 * Koden er skrevet slik at den kan gjøre alle alternativene.
 * Til slutt så plusser vi på antall da vi har lagt inn et nytt element og plusser vi på endringer. 
 
-Oppgave6
-*
+Oppgave6a
+* Vi sjekker først om indeks er negative eller om om indeks er støre eller like antall. Da kaster vi en exception. 
+* Vi lager en veriabel T for å returnere. 
+* Først så sjekker vi om siste element skal fjernes
+* Etter det så sjekker om første noden skal fjernes 
+* så sjekker vi om siste noden skal fjernes
+* Til slutt så sjekker om noden skal fjernes er mellom to noden
+* til slutt så reduserer vi antall og øker endringer. 
+
+Oppgave 6b. 
+* I methoden boolean fjernes så sjekker vi først om verdeien som skal fjernes er lik null hvis den var det så returenerer vi false;
+* Vi prøver med en while loop for å gå gjenom alle noder til å sjekke om node.verdi er like verdi.
+* vi går gjenom flere tilfeller for eksempel hvis antall lik 1 så oppdater vi hode og hale og setter dem like. 
+* Til slutt så reduserer vi antallet og øker endringer. 
+
+
