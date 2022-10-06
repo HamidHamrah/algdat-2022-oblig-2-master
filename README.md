@@ -69,5 +69,5 @@ Oppgave5.
 * Koden er skrevet slik at den kan gjøre alle alternativene.
 * Til slutt så plusser vi på antall da vi har lagt inn et nytt element og plusser vi på endringer. 
 
-Oppgave6. 
+Oppgave6
 *
